@@ -14,21 +14,23 @@ class Solution {
         {
             return null;
         }
-        ArrayList<Integer> al=new ArrayList<>();
-        while(head!=null)
-        {
-            al.add(head.val);
-            head=head.next;
-        }
-        al.remove(al.size()/2);
         ListNode dummy=new ListNode(0);
-        ListNode temp=dummy;
-        for(int i=0;i<al.size();i++)
+        dummy.next=head;
+        
+        
+        ListNode slow=dummy;
+        ListNode fast=dummy;
+        while(fast.next!=null && fast.next.next!=null )
         {
-            ListNode node=new ListNode(al.get(i));
-            dummy.next=node;
-            dummy=node;
+            slow=slow.next;
+            fast=fast.next.next;
         }
-        return temp.next;
+       
+           
+            slow.next=slow.next.next;
+        
+        
+        
+        return dummy.next;
     }
 }
