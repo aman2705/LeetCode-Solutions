@@ -1,15 +1,32 @@
 class Solution {
     public boolean canJump(int[] nums) {
-       
-        int reachable=0;
-        for(int i=0;i<nums.length;i++)
+        Boolean[] dp = new Boolean[nums.length+1];
+       return reachlast(nums,0,dp);
+    }
+    private static boolean reachlast(int nums[],int curri,Boolean []dp)
+    {
+        if(curri>=nums.length-1)
+            return true;
+        
+        if(curri<0 || nums[curri]==0)
+            return false;
+        
+        if(dp[curri]!=null)
         {
-            if(i>reachable)
-                return false;
-            
-            reachable=Math.max(reachable,i+nums[i]);
-            
+            return dp[curri];
         }
-        return true;
+        
+        boolean result=false;
+        for(int i=1;i<=nums[curri];i++)
+        {
+             result=result | reachlast(nums,curri+i,dp);
+            if(result==true)
+                break;
+        }
+           
+        
+        return dp[curri]=result;
+        
+        
     }
 }
